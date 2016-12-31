@@ -1,0 +1,1426 @@
+<?php echo $header; ?>
+<title><?php echo $heading_title; ?></title>
+<?php //echo $header; ?>
+
+<div id="main" role="main">
+	
+		<!-- RIBBON -->
+		<style>
+			 
+
+			.center1 {
+				text-align: center;
+			}
+			[data-tip] {
+			    position:relative;
+			
+			}
+			[data-tip]:before {
+			    content:'';
+			    /* hides the tooltip when not hovered */
+			    display:none;
+			    content:'';
+			    display:none;
+			    border-left: 5px solid transparent;
+			    border-right: 5px solid transparent;
+			    border-bottom: 5px solid #1a1a1a;
+			    position:absolute;
+			    top:30px;
+			    left:35px;
+			    z-index:8;
+			    font-size:0;
+			    line-height:0;
+			    width:0;
+			    height:0;
+			    position:absolute;
+			    top:30px;
+			    left:35px;
+			    z-index:8;
+			    font-size:0;
+			    line-height:0;
+			    width:0;
+			    height:0;
+			}
+			[data-tip]:after {
+			    display:none;
+			    content:attr(data-tip);
+			    position:absolute;
+			    top:35px;
+			    right:10px;
+			    padding:5px 8px;
+			    background:#1a1a1a;
+			    color:#fff;
+			    z-index:9;
+			    font-size: 0.75em;
+			    height:25px;
+			    line-height:18px;
+			    -webkit-border-radius: 3px;
+			    -moz-border-radius: 3px;
+			    border-radius: 3px;
+			    white-space:nowrap;
+			    word-wrap:normal;
+			}
+			[data-tip]:hover:before,
+			[data-tip]:hover:after {
+			    display:block;
+			}
+		</style>
+						
+			<!-- breadcrumb -->
+			
+			<!--	<ol class="breadcrumb">
+			<?php if($mode==1){ ?>
+			<li>
+			Product List
+			</li>
+			<?php }else if($mode==2){ ?>
+			<li>
+			Amazon Product List
+			</li>
+			<?php }elseif($mode==3){ ?>
+			<li>Queenzliving Product List</li>
+			<?php }elseif($mode==4){ ?>
+			<li>Channeladvisor Product List</li>
+			<?php } ?>
+			</ol>
+			<!-- end breadcrumb -->
+		
+		<div id="content" class="container" style="padding-top:40px">
+		<!-- widget grid -->
+			<section id="widget-grid" class="">
+				<div class="">
+							<!--  <ul class="breadcrumb">
+							<?php //foreach ($breadcrumbs as $breadcrumb) { ?>
+							<li><a href="<?php //echo $breadcrumb['href']; ?>"><?php //echo $breadcrumb['text']; ?></a></li>
+							<?php// } ?>
+							</ul> -->
+							<!--<?php $mess = isset($_REQUEST['mess']) ? $_REQUEST['mess'] : null; ?>
+							<?php if($mess==1){ ?>
+							
+							<div class="alert alert-block alert-success">
+							<a class="close" data-dismiss="alert" href="#">×</a>
+							<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> <?php echo "Selected product associated to Warehouse Successfully."; ?> </h4>
+							
+							
+							</div>
+							<?php } ?>-->
+							
+							<?php if (!empty($result)) { ?>
+								<div class="alert alert-success">
+									<a class="close" data-dismiss="alert" href="#"><i class="fa fa-times"></i></a>
+									<i class="fa fa-check-square-o"></i><?php echo $result; ?>
+								</div>
+							<?php } ?>
+							
+							
+							<?php if ($id1==1) { ?>
+								<div class="alert alert-success">
+									<a class="close" data-dismiss="alert" href="#"><i class="fa fa-times"></i></a>
+									<i class="fa fa-check-square-o"></i><?php echo "Selected product associated to marketplace successfully"; ?>
+								</div>
+							<?php } ?>
+							
+							
+							<?php if ( $_GET['results']==1) { ?>
+								<div class="alert alert-success">
+									<a class="close" data-dismiss="alert" href="#"><i class="fa fa-times"></i></a>
+									<i class="fa fa-check-square-o"></i><?php echo "Product has been disabled!"; ?>
+								</div>
+							<?php } ?>
+							
+							<?php if ( $_GET['results']==2) { ?>
+								<div class="alert alert-danger">
+									<a class="close" data-dismiss="alert" href="#"><i class="fa fa-times"></i></a>
+									<i class="fa fa-check-square-o"></i><?php echo "Please select the product!"; ?>
+								</div>
+							<?php } ?>
+							<?php if ($error_warning) { ?>
+								<a class="close" data-dismiss="alert" href="#"><i class="fa fa-times"></i></a>
+								<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i><?php echo $error_warning; ?>
+								</div>
+							<?php } ?>
+							<?php if ($success) { ?>
+								<div class="alert alert-success">
+									<a class="close" data-dismiss="alert" href="#"><i class="fa fa-times"></i></a>
+									<i class="fa fa-check-square-o"> </i> <?php echo $success; ?>
+								</div>
+							<?php } ?>
+							<?php if( $_GET['error']=='201'){ ?>
+								<div class="alert alert-block alert-danger">
+									<a class="close" data-dismiss="alert" href="#"><i class="fa fa-times"></i></a>
+									<i class="fa fa-close"></i> You do not have products to export.         
+								</div>
+							<?php } ?>
+							
+							<?php if( $_GET['error']=='202'){ ?>
+								<div class="alert alert-block alert-danger">
+									<a class="close" data-dismiss="alert" href="#"><i class="fa fa-times"></i></a>
+									<i class="fa fa-close"></i> You have not selected any product to export. 
+								</div>
+							<?php } ?>
+                            
+                            
+                             
+				  <div class="row">
+				 	<!-- <?php echo $column_left; ?>
+				    <?php if ($column_left && $column_right) { ?>
+				    <?php $class = 'col-sm-6'; ?>
+				    <?php } elseif ($column_left || $column_right) { ?>
+				    <?php $class = 'col-sm-9'; ?>
+				    <?php } else { ?>
+				    <?php $class = 'col-sm-12'; ?>
+				    <?php } ?>-->
+				    <script type="text/javascript"> 
+					    function gototab(reload)
+						{
+						    window.location.hash = '#content';
+						    window.location.reload(true);
+						} 
+					</script>
+					<div id="succcss1" style="display:none;"> 
+				     	<img src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/img/output_dydDsK.gif "> 
+				    </div>
+				    <div id="succcss" style="display:none;">   </div>
+				   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
+				</script>
+
+				<?php if($mode==1){ ?>
+					<div class="pull-right" style="margin-right:-2px">
+					<form action="<?php echo DIR_PATH; ?>ajaxcall/export_seller_product/index.php" id="reg-form" name="myselect" method="post" enctype="multipart/form-data" >
+						<!-- <input type="hidden" name="hid_store_id" value ="US"> 
+						<input type="hidden" name="customer_idd" value="<?php echo $customer_id; ?>">
+						<button type="submit" name="market" class = "btn btn-primary"> Click to refresh orders from Amazon</button> -->
+						<input type="hidden" name="customer_idd" value="<?php echo $seller_id; ?>">
+						<input type="hidden" name="hid_store_id" value="<?php echo $store_code; ?>">
+						<button type="submit" name="Download_product" style="margin-right: 16px; background:#a90329 !important;"  class="btn btn-primary">Export all products</button>
+						
+					</form>
+					</div>
+				<?php } ?>
+				<form action="" method="post" enctype="multipart/form-data" id="form-product">
+					<?php if($mode==1){ ?>
+						<input type="hidden" name="customer_idd" value="<?php echo $seller_id; ?>">
+					<div class="pull-left" style="margin-left:-2px">
+                    
+						<button type="button" name="Download_selected_product" formaction="<?php echo DIR_PATH; ?>ajaxcall/export_seller_product/index.php" style="margin-right: 16px; margin-left: 16px; background:#a90329 !important;" class="btn btn-primary">Export selected products			
+						</button>
+						<!--<form action="ajaxcall/export_seller_product/index.php" id="reg-form" name="myselect" method="post" enctype="multipart/form-data" >
+						<input type="hidden" name="customer_idd" value="<?php// echo $seller_id; ?>">
+						<input type="hidden" name="hid_store_id" value="<?php// echo $store_code; ?>">
+						<button type="submit" style="margin-right: 16px; background:#a90329 !important;"  class="btn btn-primary">
+						Export selected product
+						</button>
+						</form>-->
+					</div>
+					<?php } ?>
+					<!--
+					<div class="pull-left">		
+						<a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="margin-right: 16px; margin-left: 16px; background:#a90329 !important;">Add to warehouse</a>
+					</div>
+					
+					
+					<div class="pull-right">
+                        <a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal_all" style="margin-right: 16px; background:#a90329 !important;">All product add to warehouse</a>
+                        
+						<!--<button type="button" name="addproductwarehouse" class="btn btn-primary" title="Add Product Warehouse" style="margin-right: 16px; background:#a90329 !important;"  />Add Product Warehouse</button>
+						<!--<a href="" data-toggle="tooltip" title="<?php // echo $button_insert; ?>" class="btn btn-primary" style="line-height:6px;">Add Product Warehouse</a>
+						<!-- <a onclick="$('#form-product').submit();" data-toggle="tooltip" class="btn btn-danger"  title="<?php // echo $button_delete; ?>" style="line-height:6px;"><i class="fa fa-trash-o"></i></a>
+					</div>
+					-->
+					<?php if($mode==1){ ?>
+						<div class="pull-left">
+							<a href="" class="btn btn-danger" data-toggle="modal" data-target="#marketModal" style="margin-right: 16px; background:#a90329 !important;">Add selected to marketplace</a>
+							</div>
+							<div class="pull-right">	
+                            <a href="" class="btn btn-danger" data-toggle="modal" data-target="#marketModal_all" style="margin-right: 16px; background:#a90329 !important;">Add all to marketplace</a>
+						
+						</div>
+					<?php } ?>
+					<div id="content" class="col-sm-12" style="margin-top:-10px">
+					  
+					<!-- <?php echo $content_top; ?>    
+					<h1>
+					<span style="line-height:6px;">  <?php echo $heading_title; ?></span>
+					<div class="pull-right">
+					<a href="<?php echo $insert; ?>" data-toggle="tooltip" title="<?php echo $button_insert; ?>" class="btn btn-primary" style="line-height:6px;"><i class="fa fa-plus"></i></a>
+					<a onclick="$('#form-product').submit();" data-toggle="tooltip" class="btn btn-danger"  title="<?php echo $button_delete; ?>" style="line-height:6px;"><i class="fa fa-trash-o"></i></a>
+					</div>
+					</h1>-->
+					<fieldset>
+					<div class="modal fade" id="marketModal" tabindex="-1" role="dialog" aria-labelledby="marketModalLabel" aria-hidden="true">
+					
+						<div class="modal-dialog">
+							<div class="modal-content">
+							
+								<div class="modal-header" style="background:#57889c">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									<i class="fa fa-times"></i>
+									</button>
+									<h4 class="modal-title text-info" id="myModalLabel" style="color:#fff; font-size: 16px !important;" >Select Marketplace</h4>
+								</div>
+								<section id="widget-grid" class="">
+									<div class="row" style="margin-left:2%; margin-top:2%; width:96%">
+										<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" data-widget-deletebutton="false">
+										    <header style="background:#1881DB; color:#fff">
+												  
+											   <h2>Select Marketplace</h2>
+											</header>
+											<div>
+												<div class="widget-body1 no-padding">
+													<table id="datatable_fixed_column2" class="table table-striped1 table-bordered" width="100%">
+														<thead>
+														<!--<tr>
+														 <th data-class="expand">Warehouse</th>
+														 <th data-class="phone"><input type="checkbox" name="warehouse_id" id="select_all" class="checkall"></th>
+														</tr>-->
+														</thead>
+														<tbody>
+															<?php $f=1; 
+															   foreach($form_data1 as $rows){ 
+															 ?>
+															<tr>
+																<td ><?php echo $rows['marketplace']; ?></td>
+																<td style="text-align:center;">
+																	<input type="checkbox"  name="marketplace_id[]" id="marketplaces_<?php echo $f;?>" value="<?php echo $rows['id'];?>" class="marketp" ></input> </td>
+																<td>
+																	<select name="fulfilled_<?=$rows['id']?>" id="fulfilled_<?php echo $f;?>"  class="form-control" disabled="disabled">
+																	<option value="">Select fulfilment</option>
+																	<option value="MFN" >Merchant</option>
+																	
+																	<?php if ($rows['id']==2 && $use_own_cred == 0){ ?>
+																	<option value="QFN" >System </option>
+																	<?php } ?>
+																	<option value="MPFN" >Marketplace </option>
+																	</select>
+																</td>
+															</tr>		
+															<?php $f++;} ?>                     
+															
+															
+														</tbody>
+													</table>
+													<input type="hidden" name="seller_id" value="<?php echo $seller_id;?>" />
+												</div>
+											</div>
+										</div>
+									</div>
+								
+								
+									<br>
+									<div style="clear: both;"> </div>
+									
+									<div class="err1" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select product first. </div>
+									
+									<div class="err2" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select marketplace. </div>
+									<div class="err2_2" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select marketplace. </div>
+									
+									<div class="err2_1" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select the dropdown value also against marketplace. </div>
+									<div class="err2_2" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select the  dropdown value also against marketplace. </div>
+									<div class="err2_1_1" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select the dropdown value against queenzliving marketplace. </div>
+									<div class="err2_1_2" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select the dropdown value against amazon marketplace. </div>
+									
+								</section>
+							<div class="err1" style=""> </div>
+							<div class="modal-footer" >
+								<button type="button" class="btn btn-primary" data-dismiss="modal">
+								Cancel
+								</button>
+								<button type="submit" id="assign_mp"  name="basic2" class="btn btn-primary">
+								Save
+								</button>
+								<!-- <input type="hidden" id="Ids" name="hid_ids" value="" />-->
+							</div>
+							
+							</div>
+						</div>
+					</div>
+                    
+                    <div class="modal fade" id="marketModal_all" tabindex="-1" role="dialog" aria-labelledby="marketModalLabel" aria-hidden="true">
+					
+						<div class="modal-dialog">
+							<div class="modal-content">
+							
+								<div class="modal-header" style="background:#57889c">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									<i class="fa fa-times"></i>
+									</button>
+									<h4 class="modal-title text-info" id="myModalLabel" style="color:#fff; font-size: 16px !important;" >Select Marketplace</h4>
+								</div>
+								<section id="widget-grid" class="">
+									<div class="row" style="margin-left:2%; margin-top:2%; width:96%">
+										<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" data-widget-deletebutton="false">
+										    <header style="background:#1881DB; color:#fff">
+												  
+											   <h2>Select Marketplace </h2>
+											</header>
+											<div>
+												<div class="widget-body1 no-padding">
+													<table id="datatable_fixed_column2" class="table table-striped1 table-bordered" width="100%">
+														<thead>
+														<!--<tr>
+														 <th data-class="expand">Warehouse</th>
+														 <th data-class="phone"><input type="checkbox" name="warehouse_id" id="select_all" class="checkall"></th>
+														</tr>-->
+														</thead>
+														<tbody>
+															<?php $f=1; 
+															   foreach($form_data1 as $rows){ 
+															 ?>
+															<tr>
+																<td ><?php echo $rows['marketplace']; ?></td>
+																<td style="text-align:center;">
+																	<input type="checkbox"  name="marketplace_all_id[]" id="marketplaces_all_<?php echo $f;?>" value="<?php echo $rows['id'];?>" class="marketp" ></input> </td>
+																<td>
+																	<select name="fulfilled_all_<?=$rows['id']?>" id="fulfilled_all_<?php echo $f;?>"  class="form-control" disabled="disabled">
+																	<option value="">Select fulfilment</option>
+																	<option value="MFN" >Merchant</option>
+																	
+																	<?php if ($rows['id']==2 && $use_own_cred == 0){ ?>
+																	<option value="QFN" >System </option>
+																	<?php } ?>
+																	<option value="MPFN" >Marketplace </option>
+																	</select>
+																</td>
+															</tr>		
+															<?php $f++;} ?> 
+															
+																
+															
+												  
+														</tbody>
+														
+													</table>
+													
+													<input type="hidden" name="seller_id" value="<?php echo $seller_id;?>" />
+												</div>
+											</div>
+										</div>
+									</div>
+								
+								
+									<br>
+									<div style="clear: both;"> </div>
+									<!--
+									<div class="err1" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select product first. </div>-->
+									
+									<div class="err2" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select marketplace. </div>
+									<div class="err2_2" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select marketplace. </div>
+									
+									<div class="err2_1" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select the dropdown value also against marketplace. </div>
+									<div class="err2_2" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select the  dropdown value also against marketplace. </div>
+									<div class="err2_1_1" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select the dropdown value against queenzliving marketplace. </div>
+									<div class="err2_1_2" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select the dropdown value against amazon marketplace. </div>
+								</section>
+								<div class="err1" style=""> </div>
+								<div class="modal-footer" >
+									<button type="button" class="btn btn-primary" data-dismiss="modal">
+									Cancel
+									</button>
+									<button type="submit" id="assign_mp_all"  name="basic2_all" class="btn btn-primary">
+									Save
+									</button>
+									<!-- <input type="hidden" id="Ids" name="hid_ids" value="" />-->
+								</div>
+							
+							</div>
+						</div>
+					</div>
+                    
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header" style="background:#57889c">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									<i class="fa fa-times"></i>
+									</button>
+									<h4 class="modal-title text-info" id="myModalLabel" style="color:#fff;  font-size: 16px !important;" >Select Warehouse</h4>
+								</div>
+							
+								<section id="widget-grid" class="">
+										 <div class="row" style="margin-left:2%; margin-top:2%; width:96%">
+											<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" data-widget-deletebutton="false">
+											    <header style="background:#1881DB; color:#fff">
+												  <h2>Select Warehouse </h2>
+												</header>
+										<div>
+											<div class="widget-body1 no-padding">
+											    <table id="datatable_fixed_column1" class="table table-striped table-bordered" width="100%">
+												   <thead>
+													<!-- <tr>
+															 <th data-class="expand">Warehouse</th>
+															 <th data-class="phone">--><!--<input type="checkbox" name="warehouse_id" id="select_all" class="checkall">--><!--</th>
+													   </tr>-->
+											       </thead>
+												    <tbody>
+														<?php  
+														   foreach($form_data as $rows){ 
+														 ?>
+													  <tr>
+															 <td ><?php echo $rows['wm_displayname']; ?></td>
+															 <td style="text-align:center">
+															 
+									    <input type="checkbox" name="warehouse_id[]" id="warehouses" value="<?php echo $rows['ID'];?>" ></input> 
+												 			</td>
+														<?php } ?>                     
+									   				 </tr>
+												    </tbody>
+											</table>
+								<input type="hidden" name="seller_id" value="<?php echo $seller_id;?>" />
+										 </div>
+									  </div>
+								   </div>
+								</div>
+								
+								
+								<br>
+								<div class="err3" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select product first. </div>
+								<div class="err4" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select warehouse. </div>
+								</section>
+							
+								<div class="modal-footer" >
+									<div class="pull-left">	
+										<a href="index.php?route=landing/createwarehouse" class="btn btn-primary" style="margin-right: 16px; background:#a90329 !important;">Create Warehouse</a>
+									</div>
+									<button type="button" class="btn btn-primary" data-dismiss="modal">
+									Cancel
+									</button>
+									<button type="submit" id="assign_wh"  name="basic1" class="btn btn-primary">
+									Save
+									</button>
+									<!-- <input type="hidden" id="Ids" name="hid_ids" value="" />-->
+								</div>
+							
+							</div>
+						</div>
+					</div>
+                    
+                    <div class="modal fade" id="myModal_all" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header" style="background:#57889c">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									<i class="fa fa-times"></i>
+									</button>
+									<h4 class="modal-title text-info" id="myModalLabel" style="color:#fff;  font-size: 16px !important;" >Select Warehouse</h4>
+								</div>
+							
+								<section id="widget-grid" class="">
+										 <div class="row" style="margin-left:2%; margin-top:2%; width:96%">
+											<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" data-widget-deletebutton="false">
+											    <header style="background:#1881DB; color:#fff">
+												  <h2>Select Warehouse </h2>
+												</header>
+										<div>
+											<div class="widget-body1 no-padding">
+											    <table id="datatable_fixed_column1" class="table table-striped table-bordered" width="100%">
+												   <thead>
+													<!-- <tr>
+															 <th data-class="expand">Warehouse</th>
+															 <th data-class="phone">--><!--<input type="checkbox" name="warehouse_id" id="select_all" class="checkall">--><!--</th>
+													   </tr>-->
+											       </thead>
+												    <tbody>
+														<?php  
+														   foreach($form_data as $rows){ 
+														 ?>
+													  <tr>
+															 <td ><?php echo $rows['wm_displayname']; ?></td>
+															 <td style="text-align:center">
+															 
+									    <input type="checkbox" name="warehouse_id[]" id="warehouses" value="<?php echo $rows['ID'];?>" ></input> 
+												 			</td>
+														<?php } ?>                     
+									   				 </tr>
+												    </tbody>
+											</table>
+								<input type="hidden" name="seller_id" value="<?php echo $seller_id;?>" />
+										 </div>
+									  </div>
+								   </div>
+								</div>
+								
+								
+								<br>
+								<!--<div class="err3" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select product first. </div>-->
+								<div class="err4" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select warehouse. </div>
+								</section>
+							
+								<div class="modal-footer" >
+									<div class="pull-left">	
+										<a href="index.php?route=landing/createwarehouse" class="btn btn-primary" style="margin-right: 16px; background:#a90329 !important;">Create Warehouse</a>
+									</div>
+									<button type="button" class="btn btn-primary" data-dismiss="modal">
+									Cancel
+									</button>
+									<button type="submit" id="assign_wh_all"  name="basic1_all" class="btn btn-primary">
+									Save
+									</button>
+									<!-- <input type="hidden" id="Ids" name="hid_ids" value="" />-->
+								</div>
+							
+							</div>
+						</div>
+					</div>
+					<div class="table-responsive">
+						  <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-productlist" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" data-widget-deletebutton="false">
+								<header style="background:#1881DB; color:#fff">
+									<!--<span class="widget-icon"> <i class="fa fa-table"></i> </span>-->
+									<?php if($mode==1){ ?>
+										<h2><?php echo $heading_title; ?></h2>
+									<?php }elseif($mode==2){ ?>
+										<h2>Amazon Product List</h2>
+									<?php }elseif($mode==3){ ?>
+										<h2>Queenzliving Product List</h2>
+									<?php }elseif($mode==4){ ?>
+										<h2>Channeladvisor Product List</h2>
+									<?php } ?>
+								</header>
+							<!-- widget div-->
+							<!-- widget edit box -->
+							<div class="jarviswidget-editbox"></div>
+							<!-- end widget edit box -->
+							<div style="padding:25px 10px 15px 10px">
+							<div class="form-horizontal" >
+								<div class="col-sm-6">
+								<div class="form-group">
+									<label class="col-md-3" for="input-name"><?php echo $entry_name; ?></label>
+									
+									<div class="col-md-8">
+										<input type="text" name="filter_name" value="<?php echo $filter_name; ?>" placeholder="<?php echo $entry_name; ?>"   id="input-name" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3" for="input-model"><?php echo $entry_sku; ?></label>
+									
+									<div class="col-md-8">
+										<input type="text" name="filter_sku" value="<?php echo $filter_sku; ?>" placeholder="<?php echo $entry_sku; ?>" id="input-sku" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3" for="input-model"><?php echo $entry_group; ?></label>
+									
+									<div class="col-md-8">
+									
+									<select name="filter_group" class="form-control">
+									<option value="">Select group</option>
+									<?php foreach($group_data as $data){?>
+										<option value="<?php echo $data['group_id'] ?>"><?php echo $data['group_name'] ?></option>
+									<?php } ?>
+									</select>
+										<!--<input type="text" name="filter_group" value="<?php //echo $filter_group; ?>" placeholder="<?php //echo $entry_group; ?>" id="input-group" class="form-control" />-->
+									</div>
+								</div>
+								</div>
+								
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label class="col-md-3" for="input-price"><?php echo $entry_price; ?></label>
+										<div class="col-md-8">
+											<input type="text" name="filter_price" value="<?php echo $filter_price; ?>" placeholder="<?php echo $entry_price; ?>" id="input-price" class="form-control" />
+										</div>
+									</div>
+									<div class="form-group">
+											<label class="col-md-3" for="input-quantity"><?php echo $entry_upc; ?></label>
+										<div class="col-md-8">
+											<input type="text" name="filter_upc" value="<?php echo $filter_upc; ?>" placeholder="<?php echo $entry_upc; ?>" id="input-quantity" class="form-control" />
+										</div>
+									</div>
+									<div class="form-group">
+											<label class="col-md-3" for="input-quantity"><?php echo 'Category'; ?></label>
+										<div class="col-md-8">
+											<select name="filter_category_id" class="form-control" >         
+												<option value=""><?php  echo "Select Category"; ?></option>
+											   
+												<?php foreach ($categories as $category) { ?>
+													<?php if ($category['category_id'] == $category_id) { ?>
+														<option value="<?php echo $category['category_id']; ?>" selected="selected"><?php echo $category['name']; ?></option>
+													<?php } else { ?>
+														<option value="<?php echo $category['category_id']; ?>"><?php echo $category['name']; ?></option>
+													<?php } ?>
+												<?php } ?>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<!--<div class="form-group">
+									<label class="control-label" for="input-status"><?php echo $entry_status; ?></label>
+									<select name="filter_status" id="input-status" class="form-control">
+									<option value="*"></option>
+									<?php if ($filter_status) { ?>
+									<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+									<?php } else { ?>
+									<option value="1"><?php echo $text_enabled; ?></option>
+									<?php } ?>
+									<?php if (!$filter_status && !is_null($filter_status)) { ?>
+									<option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+									<?php } else { ?>
+									<option value="0"><?php echo $text_disabled; ?></option>
+									<?php } ?>
+									</select>
+									</div>-->
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<div class="col-md-11">
+											<button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> <?php echo $button_filter; ?></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="clear"> </div> 
+							
+							<!-- table -->
+							<div id="product-div" class="widget-body no-padding" style="position:static !important">
+								<!--<div class="custom-scroll table-responsive" style="height:290px; overflow-y: scroll;">-->
+								
+								<table id="datatable_fixed_column" class="table table-striped table-bordered" width="100%">
+									<?php if($mode == 2 || $mode == 3) {?>
+									<thead>
+										<tr>
+											<th style="width:6%"> </th>
+											<th style="width:8%"> </th>
+											<th style="width:22%"> </th>
+											<th style="width:16%"> </th>
+											<th style="width:8%"> </th>
+											<th style="width:6%"> </th>
+											<th style="width:6%"> </th>
+											<th  style="width:6%"> </th>
+											<th style="width:6%"> </th>
+											<th style="width:6%"> </th>
+											
+											<th class="hasinput" style="width:10%">
+												<button type="button" id="add_group"  data-toggle="modal" data-target="#add_to_groupModal" class="btn btn-primary" > Add selected to group </button>
+											</th>
+										</tr>
+									
+										<tr>
+										<th class="hasinput" style="width:6%; "><input name="select_all" value="1" id="product_checkbox" type="checkbox" /></th>
+										<th class="hasinput" style="width:8%">Product Id</th>
+										<th class="hasinput" style="width:22%">Title</th>
+										<th class="hasinput" style="width:16%">SKU</th>
+										<th class="hasinput" style="width:8%;text-align:center;">UPC</th>
+										<th class="hasinput" style="width:6%;text-align:right;">Quantity</th>
+										<th class="hasinput" style="width:6%;text-align:right;">Price</th>
+										<th class="hasinput" style="width:6%;text-align:right;">30 Day Sales</th>
+										<th class="hasinput" style="width:6%;text-align:center;">Type</th>
+										<th class="hasinput" style="width:6%;text-align:center;">Fulfilled By</th>
+										<!--<th class="hasinput" style="width:6%">Status</th>-->
+										
+										<th class="hasinput" style="width:10%;text-align:center;">Action</th>
+										</tr>
+									</thead>
+									<?php } else {?>
+									<thead>
+										<tr>
+											<th style="width:6%"> </th>
+											<th style="width:8%"> </th>
+											<th style="width:24%"> </th>
+											<th  style="width:18%"> </th>
+											<th  style="width:8%"> </th>
+											<th  style="width:6%"> </th>
+											<th  style="width:6%"> </th>
+											<th  style="width:8%"> </th>
+											<th style="width:6%"> </th>
+											<th  style="width:10%">
+												<button type="button" id="add_group"  data-toggle="modal" data-target="#add_to_groupModal" class="btn btn-primary" > Add selected to group </button>
+											</th>
+										</tr>
+									
+										<tr>
+										<th class="hasinput" style="width:6%; "><input name="select_all" value="1" id="product_checkbox" type="checkbox" /></th>
+										<th class="hasinput" style="width:8%">Product Id</th>
+										<th class="hasinput" style="width:24%">Title</th>
+										<th class="hasinput" style="width:18%">SKU</th>
+										<th class="hasinput" style="width:8%;text-align:center;">UPC</th>
+										<th class="hasinput" style="width:6%;text-align:right;">Quantity</th>
+										<th class="hasinput" style="width:6%;text-align:right;">Price</th>
+										<th class="hasinput" style="width:8%;text-align:right;">30 Day Sales</th>
+										<th class="hasinput" style="width:6%;text-align:center;">Type</th>
+										<!--<th class="hasinput" style="width:6%">Status</th>-->
+										<th class="hasinput" style="width:10%;text-align:center;">Action</th>
+										</tr>
+									</thead>
+									<?php } ?>
+								</table>
+							</div>
+							<!-- end table -->
+							</div>
+							<!-- end widget div -->
+						</div>
+					</div>
+					</fieldset>
+					</div> 
+					
+					<div class="modal fade" id="add_to_groupModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header" style="background:#57889c">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+										<i class="fa fa-times"></i>
+									</button>
+									<h4 class="modal-title text-info" id="myModalLabel" style="color:#fff; font-size: 16px !important;" >Add Product to Group</h4>
+								</div>
+								<section id="widget-grid" class="">
+									<div class="row" style="margin-left:2%; margin-top:2%; width:96%">
+										<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" data-widget-deletebutton="false">
+											<header style="background:#1881DB; color:#fff">
+												<h2>Select Group </h2>
+											</header>
+											<div>
+												<div class="widget-body1 no-padding">
+													<table id="datatable_fixed_column2" class="table table-striped1 table-bordered" width="100%">
+														<tbody>
+															<?php for($i = 0; $i < count($group_data); $i++ ){ ?>
+																<tr>
+																	<td> <?=$group_data[$i]['group_name']; ?> </td>
+																	<td style="text-align:center">
+																		<input type="checkbox"  name="group_id[]" id="groups" value="<?=$group_data[$i]['group_id']; ?>" ></input> 
+																	</td>
+																</tr>		
+															<?php } ?>                     
+												  
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="err7" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select group(s). </div>
+									<div class="err8" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select product(s). </div>
+									<div class="row" id="show_group_crate" style="margin-left:2%; margin-top:2%; margin-bottom:2%; width:96%">
+										
+										<button type="button" id="show_new_group" class="btn btn-primary"> Create a new group </button>
+										<div style="clear: both;"> </div>
+										
+									</div>
+									<div class="row" id="group_crate_section" style="display: none; margin-left:2%; margin-top:2%; margin-bottom:2%; width:96%">
+										<div class="col-md-6">
+											<input type="text" name="new_group_name" class="form-control g_text" placeholder="Enter group name" />
+										</div>
+										<button type="submit" name="add_new_group" id="add_new_group" class="btn btn-primary"> Save group </button>
+										
+										<button type="button" id="hide_new_group" class="btn btn-primary"> Use existing group(s) </button>
+										
+										<div style="clear: both;"> </div>
+										<br>
+										<div class="err5" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please enter group name. </div>
+										<div class="err6" style="display: none; color: red; font-size: 12px; margin-left:2%; width:96%"> Error!! Please select product(s). </div>
+									</div>
+								</section>												
+								<div class="modal-footer" >
+									<button type="button" class="btn btn-primary" data-dismiss="modal" style="float: left;">
+										Cancel
+									</button>
+									
+									<button type="submit" name="prd_to_group" id="prd_to_group" class="btn btn-primary">
+										Add to group
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+				</form>
+				  
+				  </div>
+				</div>  
+			</section>
+		</div>
+</div>
+
+<?php echo $footer; ?>
+
+<script type="text/javascript">
+
+	$("#marketplaces_1").click(function (){
+		//alert($("#marketplaces_1:checked").length);
+		//if($("#marketplaces").val()  == 1){
+		if($("#marketplaces_1:checked").length > 0){	
+			$('#fulfilled_1').removeAttr('disabled');
+			//return false;
+		}else{
+			$('#fulfilled_1').attr('disabled', 'disabled');
+		}
+		
+	});
+	
+	$("#marketplaces_2").click(function (){
+		//alert($("#marketplaces").val());
+		//if($("#marketplaces").val()  == 1){
+		if($("#marketplaces_2:checked").length > 0){	
+			$('#fulfilled_2').removeAttr('disabled');
+			//return false;
+		}else{
+			$('#fulfilled_2').attr('disabled', 'disabled');
+		}
+		
+	});	
+	
+	
+	$("#marketplaces_all_1").click(function (){
+		//alert($("#marketplaces_all_1:checked").length);
+		//if($("#marketplaces").val()  == 1){
+		if($("#marketplaces_all_1:checked").length > 0){	
+			$('#fulfilled_all_1').removeAttr('disabled');
+			//return false;
+		}else{
+			$('#fulfilled_all_1').attr('disabled', 'disabled');
+		}
+		
+	});
+	
+	$("#marketplaces_all_2").click(function (){
+		//alert($("#marketplaces").val());
+		//if($("#marketplaces").val()  == 1){
+		if($("#marketplaces_all_2:checked").length > 0){	
+			$('#fulfilled_all_2').removeAttr('disabled');
+			//return false;
+		}else{
+			$('#fulfilled_all_2').attr('disabled', 'disabled');
+		}
+		
+	});
+
+		
+	
+	$("#assign_mp").click(function (){
+		//alert($("#marketplaces_1:checked").length  == 0);
+		//alert($("#marketplaces_2:checked").length  == 0);
+		if($("#product_checkbox:checked").length  == 0){
+			$(".err1").css("display", "block");
+			return false;
+		}else{
+			$(".err1").css("display", "none");
+		}
+		if(($("#marketplaces_1:checked").length  == 0) && ($("#marketplaces_2:checked").length  == 0)){
+		$(".err2").css("display", "block");
+		return false;
+		}else{
+			//alert("hello");
+			$(".err2").css("display", "none");
+			var ss=$("select[id=fulfilled_1]").val();
+			var s2=$("select[id=fulfilled_2]").val();
+			if(( ss == 0) && (s2 == 0)){
+				$(".err2_1").css("display", "block");
+
+				return false;			
+			}else{
+				if(($("#marketplaces_1:checked").length > 0) && ( ss == 0)){
+
+					$(".err2_1_1").css("display", "block");
+					return false;
+				}else{
+					$(".err2_1_1").css("display", "none");
+
+				}
+
+				if(($("#marketplaces_2:checked").length > 0) && ( s2 == 0)){
+
+					$(".err2_1_2").css("display", "block");
+					return false;
+				}else{
+					$(".err2_1_2").css("display", "none");
+
+				}
+				
+				
+
+				$(".err2_1").css("display", "none");
+			}
+
+		}
+		return true;
+	});
+	
+	$("#assign_wh").click(function (){
+		
+		if($("#product_checkbox:checked").length  == 0){
+			$(".err3").css("display", "block");
+			return false;
+		}else{
+			$(".err3").css("display", "none");
+		}
+		if($("#warehouses:checked").length  == 0){
+			$(".err4").css("display", "block");
+			return false;
+		}else{
+			$(".err4").css("display", "none");
+		}
+		return true;
+	});
+	
+	$("#assign_wh_all").click(function (){
+		
+		if($("#warehouses:checked").length  == 0){
+			$(".err4").css("display", "block");
+			return false;
+		}else{
+			$(".err4").css("display", "none");
+		}
+		return true;
+	});
+	
+	$("#assign_mp_all").click(function (){
+		
+		if(($("#marketplaces_all_1:checked").length  == 0) && ($("#marketplaces_all_2:checked").length  == 0)){
+		$(".err2").css("display", "block");
+		return false;
+		}else{
+			//alert("hello");
+			$(".err2").css("display", "none");
+			var ss=$("select[id=fulfilled_all_1]").val();
+			var s2=$("select[id=fulfilled_all_2]").val();
+			if(( ss == 0) && (s2 == 0)){
+				$(".err2_1").css("display", "block");
+
+				return false;			
+			}else{
+				if(($("#marketplaces_all_1:checked").length > 0) && ( ss == 0)){
+
+					$(".err2_1_1").css("display", "block");
+					return false;
+				}else{
+					$(".err2_1_1").css("display", "none");
+
+				}
+
+				if(($("#marketplaces_all_2:checked").length > 0) && ( s2 == 0)){
+
+					$(".err2_1_2").css("display", "block");
+					return false;
+				}else{
+					$(".err2_1_2").css("display", "none");
+
+				}
+				
+				
+
+				$(".err2_1").css("display", "none");
+			}
+
+		}
+		return true;
+	});
+	
+	$("#show_new_group").click(function (){
+		
+		$("#show_new_group").css("display", "none");
+		$("#group_crate_section").css("display", "block");
+		$('button[name="prd_to_group"]').prop('disabled', true);
+		$("input[id='groups']:checkbox").prop('checked', false);
+		$("input[id='groups']:checkbox").prop('disabled', true);
+		
+	});
+	
+	$("#hide_new_group").click(function (){
+		
+		$("#show_new_group").css("display", "block");
+		$("#group_crate_section").css("display", "none");
+		$('button[name="prd_to_group"]').prop('disabled', false);
+		$("input[id='groups']:checkbox").prop('disabled', false);
+		
+	});
+	
+	$("#add_new_group").click(function (){
+		
+		if($(".g_text").val()  == ''){
+			$(".err5").css("display", "block");
+			return false;
+		}else{
+			$(".err5").css("display", "none");
+		}
+		
+		if($("#product_checkbox:checked").length  == 0){
+			$(".err6").css("display", "block");
+			return false;
+		}else{
+			$(".err6").css("display", "none");
+		}
+		return true;
+	});
+	
+	$("#prd_to_group").click(function (){
+		
+		if($("#groups:checked").length  == 0){
+			$(".err7").css("display", "block");
+			return false;
+		}else{
+			$(".err7").css("display", "none");
+		}
+		
+		if($("#product_checkbox:checked").length  == 0){
+			$(".err8").css("display", "block");
+			return false;
+		}else{
+			$(".err8").css("display", "none");
+		}
+		return true;
+	});
+	
+</script>
+
+		<script data-pace-options='{ "restartOnRequestAfter": true }' src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/pace/pace.min.js"></script>
+		
+		<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        
+		<script>
+			if (!window.jQuery) {
+			document.write('<script src="<?php echo DIR_PATH;?>js/libs/jquery-2.1.1.min.js"><\/script>');
+			}
+		</script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+		<script>
+			if (!window.jQuery.ui) {
+			document.write('<script src="<?php echo DIR_PATH;?>js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+			}
+		</script>
+		<!--<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/demo.min.js"></script>-->
+		<!-- IMPORTANT: APP CONFIG -->
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/app.config.js"></script>
+		<!---for pdf -->
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/dataTables.tableTools.js"></script>
+		<!--<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/jquery.dataTables.js"></script>-->
+        <!--<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/dataTables.bootstrap.js"></script>-->
+        
+        
+        
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/jquery.js"></script>
+		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+		<!--<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
+		<!-- BOOTSTRAP JS -->
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/bootstrap/bootstrap.min.js"></script>
+		
+		<!-- CUSTOM NOTIFICATION -->
+		<!--<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/notification/SmartNotification.min.js"></script>-->
+		<!-- JARVIS WIDGETS -->
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/smartwidgets/jarvis.widget.min.js"></script>
+		<!-- EASY PIE CHARTS -->
+		<!--<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>-->
+		<!-- SPARKLINES -->
+		<!--	<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/sparkline/jquery.sparkline.min.js"></script>-->
+		<!-- JQUERY VALIDATE -->
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/jquery-validate/jquery.validate.min.js"></script>
+		<!-- JQUERY MASKED INPUT -->
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+		
+		
+		<!-- MAIN APP JS FILE -->
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/app.min.js"></script>
+		
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/datatables/jquery.dataTables.min.js"></script>
+		<!---pdf-->
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/datatables/dataTables.colVis.min.js"></script>
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/datatables/dataTables.tableTools.min.js"></script>
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/datatables/dataTables.bootstrap.min.js"></script>
+		<script src="<?php echo DIR_PATH;?>catalog/view/theme/landing/template/landing/js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
+
+<script type="text/javascript">
+		
+	// DO NOT REMOVE : GLOBAL FUNCTIONS!
+		
+	$(document).ready(function() {
+		
+		pageSetUp();
+		//var responsiveHelper_datatable_fixed_column = undefined;
+		var breakpointDefinition = {
+			tablet : 1024,
+			phone : 480
+		};
+		var rows_selected = [];
+		
+		
+		
+		var otable = $('#datatable_fixed_column').DataTable({
+												  
+			"processing": true,
+			"pageLength" : 20,
+			"serverSide": true,
+			"ajax":{
+					url	:"index.php?route=account/customerpartner/productlist/products", 					
+					// json datasource
+					type	: "post",  // type of method  ,GET/POST/DELETE
+					data	: function(d){
+							d.mode_id='<?php echo $mode; ?>';
+							d.filter_name = $('input[name=\'filter_name\']').val();
+							d.filter_sku = $('input[name=\'filter_sku\']').val();
+							d.filter_price = $('input[name=\'filter_price\']').val();
+							d.filter_upc = $('input[name=\'filter_upc\']').val();
+							d.filter_group = $('select[name=\'filter_group\']').val();
+							d.filter_category_id = $('select[name=\'filter_category_id\']').val();
+						   },
+					error: function(){
+								$("#datatable_fixed_column").css("display","none");
+							}
+					},
+			"deferLoading": 0,
+			"columns":	[
+
+							{data: 'product_id', class: 'center1'},
+							{ data: 'product_id', class: 'center1'} ,
+
+							{ data: 'name' },
+							{ data: 'sku' },
+							{ data: 'upc', class: 'right1' },
+							{ data: 'quantity', class: 'right1' },
+							{ data: 'price', class: 'right1' },
+							{ data: 'sales', class: 'right1' },
+							{ data: 'parentage', class: 'center1' },
+							<?php if($mode == 2 || $mode == 3) { ?>
+							
+							{ data: 'fulfilled_by', class: 'center1' },
+							
+							<?php }  ?>
+							
+							
+							
+							{ data: 'action', class: 'center1' }
+						]	
+								,
+			"columnDefs": [
+						
+							{
+								'targets': 0,
+								'searchable':false,
+								'orderable':false,
+
+								//'className':'dt-body-center',
+								'render': function (data, type, row, full, meta){
+								   return '<input type="checkbox" name="select[]" id="product_checkbox" value="'+ data +'">';
+								 }
+
+							 },
+			
+							{
+								
+								"render": function ( data, type, row ) {
+									if(!data || data =="" )
+									return "<b>Currency not available</b>" ;
+									else
+									return data;	
+								},
+								"targets": 2
+							},
+							
+							{
+								
+								"render": function ( data, type, row ) {
+									if(!data || data =="")
+									return "<b>Name not available</b>" ;
+									else
+									return data;	
+								},
+								"targets": 4
+											
+							},
+							{
+								"render": function ( data, type, row ) {
+									if(!data || data =="$0.00")
+									return "<b>Not available</b>" ;
+									else
+									return data;	
+								},
+								"targets": 5
+							},
+							{
+								"render": function ( data, type, row ) {
+									
+									return "$" + data;	
+								},
+								"targets": 6
+							},
+							{
+								"render": function ( data, type, row ) {
+									if(!data )
+										return "<b>No Sales</b>" ;
+									else 
+										return "$" + data;	
+								},
+								"targets": 7
+							},
+							{
+								"render": function ( data, type, row ) {
+									if(!data )
+										return "<b>Standalone</b>" ;
+									else 
+										return data;	
+								},
+								"targets": 8
+							},
+							{
+								<?php if($mode == 2 || $mode == 3) { ?>
+									"targets": 10,
+								<?php } else {  ?>
+									"targets": 9,
+								<?php }   ?>
+								"render": function (data, type, row) { 
+									return '<a href="index.php?route=account/customerpartner/addproduct&product_id='+ row.product_id +'&mode=<?php echo $mode; ?>" class="btn btn-info" data-id="' + row.product_id + '"><i class="fa fa-pencil"/></i></a> &nbsp;&nbsp; <a href="index.php?route=account/customerpartner/productlist&product_id='+ row.product_id +'" class="btn btn-info" name="copy_product" data-id="' + row.product_id + '"><i class="fa fa-copy"></i></a>';
+									
+									}
+											
+							},
+							/*{
+								"targets": 7,
+								
+										
+								"render": function (data, type, row) { 
+									return '<a href="index.php?route=account/customerpartner/addproduct&product_id='+ row.product_id +'" class="btn btn-info" data-id="' + row.product_id + '"><i class="fa fa-copy"></i></a>';
+									
+									}
+							},*/
+							
+						
+						],
+			'rowCallback': function(row, data, dataIndex){
+							 // Get row ID
+							 var rowId = data[0];
+
+							 // If row ID is in the list of selected row IDs
+							 if($.inArray(rowId, rows_selected) !== -1){
+								$(row).find('input[type="checkbox"]').prop('checked', true);
+								$(row).addClass('selected');
+							 }
+						},	
+			"dom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'><'col-sm-6 col-xs-12 hidden-xs'		<'toolbar'>>r>"+
+						"t"+
+							"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+			"autoWidth" : true
+			/*,
+			"preDrawCallback" : function() {
+							//Initialize the responsive datatables helper once.
+								if (!responsiveHelper_datatable_fixed_column) {
+													
+									responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
+								}
+						},
+								"rowCallback" : function(nRow) { 
+							responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
+						},
+								"drawCallback" : function(oSettings) { 
+							responsiveHelper_datatable_fixed_column.respond();
+						}	
+			*/
+						
+		});   
+		
+		$('#product-div').hide();
+		$('#button-filter').on('click', function() {
+				$('#product-div').show();
+				otable.ajax.reload();
+				
+		});
+		
+		// Handle click on checkbox
+		/*
+		$('#datatable_fixed_column tbody').on('click', 'input[type="checkbox"]', function(e){
+		  var $row = $(this).closest('tr');
+			//alert("check");
+		  // Get row data
+		  var data = otable.row($row).data();
+			//alert (data['product_id']);
+		  // Get row ID
+		  var rowId = data['product_id'];
+		
+			
+		  // Determine whether row ID is in the list of selected row IDs 
+		  var index = $.inArray(rowId, rows_selected);
+
+		  // If checkbox is checked and row ID is not in list of selected row IDs
+		  if(this.checked && index === -1){
+			 rows_selected.push(rowId);
+
+		  // Otherwise, if checkbox is not checked and row ID is in list of selected row IDs
+		  } else if (!this.checked && index !== -1){
+			 rows_selected.splice(index, 1);
+		  }
+
+		  if(this.checked){
+			 $row.addClass('selected');
+		  } else {
+			 $row.removeClass('selected');
+		  }
+
+		  // Update state of "Select all" control
+		  updateDataTableSelectAllCtrl(otable);
+
+		  // Prevent click event from propagating to parent
+		  e.stopPropagation();
+		});
+		
+		*/
+		
+		//Handle click on checkbox 
+		/*
+		$("#assign_mp").click(function (){
+				$.each(rows_selected, function(index, rowId){
+			 // Create a hidden element 
+				alert(rowId);
+				$("#form-product").append(
+					$('<input>')
+						.attr('type', 'hidden')
+						.attr('name', 'id[]')
+						.val(rowId)
+				);
+			});
+			alert('i m in javascript3');
+			$("#form-product").submit();
+			return true;
+		});
+		
+		*/
+		/*
+		$('#form-product').on('submit', function(e){
+			//var form = this;
+			alert("form");
+			// Iterate over all selected checkboxes
+			
+			$.each(rows_selected, function(index, rowId){
+			 // Create a hidden element 
+				$(form).append(
+					$('<input>')
+						.attr('type', 'hidden')
+						.attr('name', 'id[]')
+						.val(rowId)
+				);
+			});
+			
+		}
+		*/
+		
+		
+		
+		
+		 
+		$('#product_checkbox').on('click', function(){
+			if ($('#product_checkbox').is(':checked')){
+				 $('#datatable_fixed_column td input[type="checkbox"]').prop('checked', true);
+			}else{
+				 $('#datatable_fixed_column td input[type="checkbox"]').prop('checked', false);
+			}
+				 
+		  });
+			
+			   // Handle click on checkbox to set state of "Select all" control
+			  
+		
+	});
+	
+</script>
+<!-- Your GOOGLE ANALYTICS CODE Below -->
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+	_gaq.push(['_trackPageview']);
+	
+	(function() {
+	var ga = document.createElement('script');
+	ga.type = 'text/javascript';
+	ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
