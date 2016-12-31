@@ -1,0 +1,217 @@
+<script type="text/javascript">
+		
+		// DO NOT REMOVE : GLOBAL FUNCTIONS!
+		
+		$(document).ready(function() {
+			
+			pageSetUp();
+			
+			
+		   //var responsiveHelper_datatable_fixed_column = undefined;
+			var breakpointDefinition = {
+				tablet : 1024,
+				phone : 480
+			};
+			
+			var otable = $('#datatable_fixed_column').DataTable({
+							"processing": true,
+							"pageLength" : 20,
+							"serverSide": true,
+							"sortable" : true,
+							
+							 "ajax":{
+								url :"index.php?route=account/customerpartner/orderlist/orders", // json datasource
+								type: "post",  // type of method  ,GET/POST/DELETE
+								data: function (d) {
+									d.mode_id='<?php echo $mode; ?>';
+									d.ref='<?php echo $ref; ?>';
+								},
+								
+								error: function(err){
+									 //  alert("hello");	
+									   console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
+									  $("#datatable_fixed_column").css("display","none");
+									  
+								}
+							  }
+							 ,
+							"columns": [
+									{ data: 'sellerorderid', class: 'center1'},
+									{ data: 'buyerorderid', class: 'center1' } ,
+									{ data: 'name' },
+									{ data: 'orderstatus', class: 'center1' },
+									{ data: 'date_added' , class: 'center1'},
+									{ data: 'sale_value', class: 'right1' },
+									{ data: 'action', class: 'center1' },
+									{ data: 'currency_code' }
+									
+									
+							]	
+							,
+							
+							"columnDefs": [
+							
+								{
+									// The `data` parameter refers to the data for the cell (defined by the
+									// `data` option, which defaults to the column being worked with, in
+									// this case `data: 0`.
+									"visible": true,
+									"render": function ( data, type, row ) {
+										if(!data || data =="" )
+										return "<b>Name not available</b>" ;
+										else
+										return data;	
+									},
+									
+									"targets": 2
+										
+									
+									
+								},
+								{
+									// The `data` parameter refers to the data for the cell (defined by the
+									// `data` option, which defaults to the column being worked with, in
+									// this case `data: 0`.
+									
+									"render": function ( data, type, row ) {
+										if(!data || data =="" )
+										return "<b>Status not available</b>" ;
+										else
+										return data;	
+									},
+									"visible": true,
+									"targets": 3
+										
+									
+									
+								},
+								
+								
+								{
+									// The `data` parameter refers to the data for the cell (defined by the
+									// `data` option, which defaults to the column being worked with, in
+									// this case `data: 0`.
+									
+									"render": function ( data, type, row ) {
+										parseFloat(data).toFixed(2);
+										if(!data || data =="0.00")
+											return "<b>Amount NA</b>" ;
+										else if (row['currency_code'])
+
+											  
+											return "$" + "" + data;
+
+										else 
+											return "$" +  data;	
+									},
+									"targets": 5
+								},
+								{
+									
+									"render": function ( data, type, row ) {
+										
+										return '<a class="btn btn-primary btn-xs"   href="index.php?route=account/customerpartner/orderinfo&order_id=' +  row['action'] + '&order_ref='+ row['sellerorderid'] +'"><i class="fa fa-eye"></i></a>';	
+									},
+									"targets": 6
+									
+								},
+								{
+									
+									"visible": false,  
+									"targets":  7  
+								}
+							
+							]
+							
+							//,
+							//"dom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'><'col-sm-6 col-xs-12 hidden-xs'<'toolbar'>>r>"+
+							//"t"+
+							//	"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+							//"autoWidth" : true
+							/*
+							,
+							
+							"preDrawCallback" : function() {
+								//Initialize the responsive datatables helper once.
+								if (!responsiveHelper_datatable_fixed_column) {
+									responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
+								}
+							},
+							"rowCallback" : function(nRow) {
+								responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
+							},
+							"drawCallback" : function(oSettings) {
+								responsiveHelper_datatable_fixed_column.respond();
+							}		
+							*/
+			});   
+					
+					
+			// Apply the filter
+			
+			$("#search").on('click', function (e) {
+				//alert(otable.column(2).value);
+				//alert($("#datatable_fixed_column thead th input[type=text]").parent().index(2).value);
+				
+				resetSearchTextBox();
+				otable
+				.draw();
+			});
+			
+			
+			function resetSearchTextBox() {
+				
+				if($("#col0").val()) {
+					otable.column(0).search($("#col0").val());
+				}else {
+					otable.column(0).search("");
+				}
+				if($("#col1").val()) {
+					otable.column(1).search($("#col1").val());
+				} else {
+					otable.column(1).search("");
+				}
+				if($("#col2").val()) {
+					otable.column(2).search($("#col2").val());
+				}else {
+					otable.column(2).search("");
+				}
+				if($("#col3").val()) {
+					otable.column(3).search($("#col3").val());
+				}else {
+					otable.column(3).search("");
+				}
+				if($("#col4").val()) {
+					otable.column(4).search($("#col4").val());
+				}else {
+					otable.column(4).search("");
+				}
+				if($("#col5").val()) {
+					otable.column(5).search($("#col5").val());
+				}else {
+					otable.column(5).search("");
+				}
+			}
+			
+			
+		    $("#datatable_fixed_column thead th input[type=text]").on( 'keydown keyup', function (e) {
+				//alert($(this).parent());
+				if(e.keyCode == 13) {
+				
+					resetSearchTextBox();
+					//return false;
+					
+					otable
+					
+						.column( $(this).parent().index()+':visible' )
+						.search( this.value )
+						.draw()
+					
+					e.preventDefault();
+				}
+				
+		    } );
+			
+		});
+		
+		</script>
