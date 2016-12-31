@@ -1,0 +1,175 @@
+<?php
+	require_once("restbase.php");
+	
+	/*
+	 * API for user registeration
+	 */
+	
+	
+	class ShopKeeperHandler extends RestBase {
+		
+		function error() {
+			$statusCode = 400;
+			$this ->setHttpHeaders('application/json', $statusCode);
+			$rawData = array(
+				"status" => "Error",
+				"data" => NULL,
+				"message" => "Invalid Request"
+			) ;
+			$response = $this->encodeJson($rawData);
+			echo $response;
+		}
+		
+		function register($data, $con){
+			$token = '76%RZ3^M91';
+			$statusCode = 400;
+			$status = "Error";
+			$id = NULL;
+			
+			if($data['token'] == $token){
+				$statusCode = 203;
+
+				if(isset($data['firstname']) && isset($data['lastname']) && isset($data['email']) && isset($data['mobile']) && isset($data['parent_id']) ){
+					
+					$email_query = mysqli_query($con, "SELECT count(*) as email_chk FROM wp_users where user_email = '".$data['email']."'");
+					 
+					$email_query_obj = mysqli_fetch_object($email_query); 
+					$email_exist = $email_query_obj->email_chk;
+					
+					if($email_exist == 1){
+						$message = "Email already exists";
+						
+					}else{
+						$parent_query = mysqli_query($con, "SELECT count(*) as parent_chk FROM wp_users where ID = '".$data['parent_id']."'");
+						 
+						$parent_query_obj = mysqli_fetch_object($parent_query); 
+						$parent_exist = $parent_query_obj->parent_chk;
+						
+						if($parent_exist == 1){
+							
+							$user_info = get_userdata($data['parent_id']);
+							$user_roles = implode(', ', $user_info->roles);
+							
+							if($user_roles === 'moderator'){
+								
+								$query = mysqli_query($con, "SELECT count(*) as mobile_chk FROM wp_user_profile where mobile = ".$data['mobile']." ");
+						
+								$query_obj = mysqli_fetch_object($query); 
+								$mobile_exist = $query_obj->mobile_chk;
+					
+								if($mobile_exist > 0){
+									$message = "Mobile number already exists";
+									
+								}else{
+									$data['password'] = $data['firstname'].$data['mobile'];
+									
+									$record_id = wp_create_user( $data['email'], $data['password'], $data['email']);
+									
+									if($record_id >= 0){
+										
+										$statusCode = 200;
+										
+										mysqli_query($con, "insert into wp_user_profile(user_id, first_name, last_name, mobile, parent_id) values(".$record_id.", '".$data['firstname']."', '".$data['lastname']."', ".$data['mobile'].", ".$data['parent_id'].")");
+										
+										mysqli_query($con, "update wp_usermeta set meta_value = '".$data['firstname']."' where user_id = ".$record_id." and meta_key = 'first_name' ");
+										
+										mysqli_query($con, "update wp_usermeta set meta_value = '".$data['lastname']."' where user_id = ".$record_id." and meta_key = 'last_name' ");
+										
+										$data['display_name'] = $data['firstname'].' '.$data['lastname'];
+										
+										mysqli_query($con, "update wp_users set display_name = '".$data['display_name']."' where ID = ".$record_id." ");
+										
+										$status = "Success2";
+										$id = $data['parent_id'];
+										$message = "Your pledge is successful";
+										
+									}else{
+										$message = "Unable to register you";
+									}
+								}
+							}else{
+								$message = "Invalid referrer user";
+							}
+						}else{
+							$message = "Invalid referrer user";
+						}
+					}
+				} else {
+					$message = "Incomplete parameters";
+				}
+			}else{
+				$message = "Invalid Token";
+			}	
+			$response = $this->sendResponse($statusCode, $status, $id, $message);
+			echo $response;
+		}
+
+
+		/*
+		 * API for user login
+		 */
+		function login($data){
+			
+			//echo 'i am in login function';
+			$token = '76%RZ3^M91';
+			$statusCode = 400;
+			$status = "Error";
+			$id = NULL;
+			if($data['token'] == $token){
+				$statusCode = 203;
+				
+				if(isset($data['user_name']) && isset($data['password']) ){
+					
+					$result = wp_authenticate($data['user_name'], $data['password']);
+					
+					if(isset($result->errors['invalid_email'])){
+						$message = "Incorrect username";
+						
+					}else{
+						if(isset($result->errors['incorrect_password'])){
+						
+							$message = "Incorrect password";
+						
+						}else{
+							if(($result->data->ID !=0) && ($result->roles[0] === 'moderator')){
+								
+								$statusCode = 200;
+								$status = "Success";
+								$message = "Login Successful";
+								$id = $result->data->ID;
+						
+							}else{
+								$message = "Login unsuccessful";
+							}
+						}
+					}					
+				} else {
+					$message = "Incomplete parameters";
+				}	
+			}else{
+				$message = "Invalid Token";
+			}
+		
+			$response = $this->sendResponse($statusCode, $status, $id, $message);
+			echo $response;
+		}
+		
+		function sendResponse($statusCode, $status, $id, $message) {
+
+			$this ->setHttpHeaders('application/json', $statusCode);
+			$rawData = array(
+					status => $status,
+					data => $id,
+					message => $message
+			);
+			$response = $this->encodeJson($rawData);
+			return $response;
+			
+		}
+		
+		function encodeJson($responseData) {
+			$jsonResponse = json_encode($responseData);
+			return $jsonResponse;		
+		}
+	}
+?>
